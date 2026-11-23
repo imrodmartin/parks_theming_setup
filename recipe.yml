@@ -1,0 +1,19 @@
+name: 'Parks Theming Setup'
+description: 'Prepares a site for the Drupal 12 Layout and Theming course. On a fresh Drupal 12 site it adds the Parks content model, the demo content, Parks Theme and UI Patterns. On a site that finished the Site Building course it skips all of that. Either way it adds the Program list view at /program-list.'
+type: 'Site'
+
+recipes:
+  # Each of these skips what already exists, so a Site Building site passes
+  # through them unchanged. Order matters: content can only be imported into
+  # a content model that exists.
+  - parks_content_model
+  - parks_demo_content
+  - parks_theme_setup
+
+install:
+  - node
+  - views
+
+config:
+  # Never overwrite a trainee's existing config.
+  strict: false
