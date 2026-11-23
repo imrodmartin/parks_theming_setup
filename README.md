@@ -16,14 +16,17 @@ The Program list view (`parks_program_list`) lists every published Program in th
 From the project root:
 
 ```
-composer config repositories.parks_content_model vcs https://github.com/imrodmartin/parks_content_model
-composer config repositories.parks_demo_content vcs https://github.com/imrodmartin/parks_demo_content
-composer config repositories.parks_theme vcs https://github.com/imrodmartin/parks_theme
-composer config repositories.parks_theme_setup vcs https://github.com/imrodmartin/parks_theme_setup
-composer config repositories.parks_theming_setup vcs https://github.com/imrodmartin/parks_theming_setup
+composer config repositories.parks_content_model '{"type": "vcs", "url": "https://github.com/imrodmartin/parks_content_model", "no-api": true}'
+composer config repositories.parks_demo_content '{"type": "vcs", "url": "https://github.com/imrodmartin/parks_demo_content", "no-api": true}'
+composer config repositories.parks_theme '{"type": "vcs", "url": "https://github.com/imrodmartin/parks_theme", "no-api": true}'
+composer config repositories.parks_theme_setup '{"type": "vcs", "url": "https://github.com/imrodmartin/parks_theme_setup", "no-api": true}'
+composer config repositories.parks_theming_setup '{"type": "vcs", "url": "https://github.com/imrodmartin/parks_theming_setup", "no-api": true}'
 composer require imrodmartin/parks_theming_setup:^1.0
-cd web && ../vendor/bin/dr cache:rebuild && ../vendor/bin/dr recipe:apply ../recipes/parks_theming_setup && cd ..
+composer update imrodmartin/parks_theme
+cd web && ../vendor/bin/dr cache:rebuild && ../vendor/bin/dr recipe:apply ../recipes/parks_theming_setup && ../vendor/bin/dr cache:rebuild && cd ..
 ```
+
+`no-api` makes Composer download from GitHub directly instead of through GitHub's API, which allows only 60 anonymous requests an hour per network. A classroom on one connection runs out fast, and Composer then fails with a misleading "Permission denied (publickey)". `composer update imrodmartin/parks_theme` brings Site Building sites up to Parks Theme 1.1, which the theming course needs.
 
 On DDEV, run `ddev ssh` first.
 
